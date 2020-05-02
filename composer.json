@@ -1,0 +1,24 @@
+{
+    "name": "ismail-elkorchi/woocommerce-2checkout-payment-gateway",
+    "type": "wordpress-plugin",
+    "description": "Allows you to use 2Checkout payment gateway with the WooCommerce plugin.",
+    "keywords": [
+        "WordPress",
+        "Plugins"
+    ],
+    "homepage": "https://github.com/Ismail-elkorchi/woocommerce-2checkout-payment-gateway",
+    "license": "GPL-2.0-or-later",
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+        "wp-coding-standards/wpcs": "^2.2",
+        "phpcompatibility/phpcompatibility-wp": "^2.1"
+    },
+    "scripts": {
+        "lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+        "fix:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+    },
+    "support": {
+        "issues": "https://github.com/Ismail-elkorchi/woocommerce-2checkout-payment-gateway/issues",
+        "source": "https://github.com/Ismail-elkorchi/woocommerce-2checkout-payment-gateway"
+    }
+}
