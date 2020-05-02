@@ -1,5 +1,13 @@
 <?php
+/**
+ * WooCommerce 2Checkout Api class
+ *
+ * @package WC_Twocheckout
+ */
 
+/**
+ * Abstract class that handle Api Credentials.
+ */
 abstract class WC_Twocheckout_Api {
 
 	public static $sid;
@@ -22,4 +30,4 @@ abstract class WC_Twocheckout_Api {
 require dirname( __FILE__ ) . '/class-wc-twocheckout-requester.php';
 require dirname( __FILE__ ) . '/class-wc-twocheckout-charge.php';
 require dirname( __FILE__ ) . '/class-wc-twocheckout-util.php';
-require dirname( __FILE__ ) . '/class-wc-twocheckout-error.php';
+require dirname( __FILE__ ) . '/class-wc-twocheckout-exception.php';

@@ -1,9 +1,13 @@
 <?php
-
 /**
- * WC_Twocheckout_Gateway class.
+ * WooCommerce 2Checkout Gateway class.
  *
  * @extends WC_Payment_Gateway
+ * @package WC_Twocheckout
+ */
+
+/**
+ * The main Gateway class.
  */
 class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 
@@ -475,7 +479,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 					'redirect' => $this->get_return_url( $order ),
 				);
 			}
-		} catch ( WC_Twocheckout_Error $e ) {
+		} catch ( WC_Twocheckout_Exception $e ) {
 			wc_add_notice( $e->getMessage(), $notice_type = 'error' );
 			return;
 		}

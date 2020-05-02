@@ -1,5 +1,13 @@
 <?php
+/**
+ * WooCommerce 2Checkout Requester class.
+ *
+ * @package WC_Twocheckout
+ */
 
+/**
+ * Send the request to 2Checkout's API.
+ */
 class WC_Twocheckout_Requester {
 
 	public $api_url;
@@ -25,7 +33,7 @@ class WC_Twocheckout_Requester {
 		$resp = curl_exec( $ch );
 		curl_close( $ch );
 		if ( false === $resp ) {
-			throw new WC_Twocheckout_Error( 'cURL call failed', '403' );
+			throw new WC_Twocheckout_Exception( 'cURL call failed', '403' );
 		} else {
 			return $resp;
 		}

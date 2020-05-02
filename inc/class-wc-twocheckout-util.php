@@ -1,5 +1,13 @@
 <?php
+/**
+ * WooCommerce 2Checkout Util Class
+ *
+ * @package WC_Twocheckout
+ */
 
+/**
+ * Provides static methods that perform small and repetitive operations.
+ */
 class WC_Twocheckout_Util {
 
 
@@ -20,7 +28,7 @@ class WC_Twocheckout_Util {
 
 	public static function checkError( $contents ) {
 		if ( isset( $contents['exception'] ) ) {
-			throw new WC_Twocheckout_Error( $contents['exception']['errorMsg'], $contents['exception']['errorCode'] );
+			throw new WC_Twocheckout_Exception( $contents['exception']['errorMsg'], $contents['exception']['errorCode'] );
 		}
 	}
 
