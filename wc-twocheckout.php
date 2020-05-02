@@ -15,12 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-/*
- Add a custom payment class to WC
-  ------------------------------------------------------------ */
-add_action( 'plugins_loaded', 'woocommerce_twocheckout', 0 );
-
-function woocommerce_twocheckout() {
+add_action( 'plugins_loaded', 'wc_twocheckout_init' );
+/**
+ * Init the plugin after plugins_loaded so environment variables are set.
+ */
+function wc_twocheckout_init() {
 	if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 		return; // if the WC payment gateway class is not available, do nothing.
 	}
@@ -31,14 +30,14 @@ function woocommerce_twocheckout() {
 	include plugin_dir_path( __FILE__ ) . 'inc/class-wc-twocheckout-gateway.php';
 	include plugin_dir_path( __FILE__ ) . 'inc/class-wc-twocheckout-api.php';
 
+	add_filter( 'woocommerce_payment_gateways', 'wc_twocheckout_add_gateway' );
 	/**
-	 * Add the gateway to WooCommerce
+	 * Loads payment gateways via hooks for use in the store.
+	 *
+	 * @param array $gateways List of payment gateways to be loaded.
 	 **/
-	function add_twocheckout_gateway( $methods ) {
-		$methods[] = 'WC_Gateway_Twocheckout';
-		return $methods;
+	function wc_twocheckout_add_gateway( $gateways ) {
+		$gateways[] = 'WC_Twocheckout_Gateway';
+		return $gateways;
 	}
-
-	add_filter( 'woocommerce_payment_gateways', 'add_twocheckout_gateway' );
-
 }
