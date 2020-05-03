@@ -328,7 +328,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 					$months = array();
 					for ( $i = 1; $i <= 12; $i ++ ) {
 						$timestamp                         = mktime( 0, 0, 0, $i, 1 );
-						$months[ date( 'n', $timestamp ) ] = date( 'F', $timestamp );
+						$months[ gmdate( 'n', $timestamp ) ] = gmdate( 'F', $timestamp );
 					}
 					foreach ( $months as $num => $name ) {
 						printf( '<option value="%02d">%s</option>', esc_attr( $num ), esc_html( $name ) );
@@ -339,7 +339,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 					<option value=""><?php esc_html_e( 'Year', 'wc_twocheckout' ); ?></option>
 						<?php
 						$years = array();
-						for ( $i = date( 'y' ); $i <= date( 'y' ) + 15; $i ++ ) {
+						for ( $i = gmdate( 'y' ); $i <= gmdate( 'y' ) + 15; $i ++ ) {
 							printf( '<option value="20%u">20%u</option>', esc_attr( $i ), esc_html( $i ) );
 						}
 						?>
