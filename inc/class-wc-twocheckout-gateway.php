@@ -15,6 +15,9 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 	public static $log_enabled = false;
 	public static $log         = false;
 
+	/**
+	 * The constructor function.
+	 */
 	public function __construct() {
 
 		$plugin_dir = plugin_dir_url( __FILE__ );

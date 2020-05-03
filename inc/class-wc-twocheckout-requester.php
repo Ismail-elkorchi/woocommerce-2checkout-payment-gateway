@@ -13,11 +13,21 @@ class WC_Twocheckout_Requester {
 	public $api_url;
 	private $private_key;
 
+	/**
+	 * The constructor function.
+	 */
 	function __construct() {
 		$this->private_key = WC_Twocheckout_Api::$private_key;
 		$this->api_url     = WC_Twocheckout_Api::$api_url;
 	}
 
+	/**
+	 * Call 2checkout API.
+	 *
+	 * @param string $data json data.
+	 * @throws WC_Twocheckout_Exception If the cURL call failed.
+	 * @return string
+	 */
 	function do_call( $data ) {
 		$data['private_key'] = $this->private_key;
 		$data                = wp_json_encode( $data );

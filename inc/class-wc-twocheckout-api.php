@@ -16,6 +16,13 @@ abstract class WC_Twocheckout_Api {
 	public static $error;
 	const VERSION = '0.0.1';
 
+	/**
+	 * Set 2Checkout API credentials.
+	 *
+	 * @param string $sid The seller id.
+	 * @param string $private_key The private API key.
+	 * @param string $mode The mode of connection : sandbox or live.
+	 */
 	static function setCredentials( $sid, $private_key, $mode = '' ) {
 		self::$sid         = $sid;
 		self::$private_key = $private_key;
