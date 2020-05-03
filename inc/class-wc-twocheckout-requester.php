@@ -44,20 +44,20 @@ class WC_Twocheckout_Requester {
 		$data                = wp_json_encode( $data );
 		$header              = array( 'content-type:application/JSON', 'content-length:' . strlen( $data ) );
 		$url                 = $this->api_url;
-		$ch                  = curl_init( $url );
-		curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'POST' );
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, $header );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, 120 );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-		$resp = curl_exec( $ch );
-		curl_close( $ch );
-		if ( false === $resp ) {
-			throw new WC_Twocheckout_Exception( 'cURL call failed', '403' );
-		} else {
-			return $resp;
+		$options             = array(
+			'method'  => 'POST',
+			'headers' => $header,
+			'body'    => $data,
+			'timeout' => 120,
+		);
+
+		$response = wp_safe_remote_post( $url, $options );
+
+		if ( is_wp_error( $response ) || empty( $response['body'] ) ) {
+			throw new WC_Twocheckout_Exception( 'There was a problem connecting to 2checkout API endpoint.', '403' );
 		}
+
+		return json_decode( $response['body'] );
 	}
 
 }
