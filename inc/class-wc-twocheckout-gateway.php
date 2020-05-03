@@ -295,9 +295,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 		// Description of payment method from settings.
 		if ( $this->description ) {
 			?>
-			<p>
-				<?php echo $this->description; ?>
-			</p>
+			<p><?php echo esc_html( $this->description ); ?></p>
 			<?php
 		}
 		?>
@@ -308,13 +306,13 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 
 		<fieldset>
 
-			<input id="sellerId" type="hidden" maxlength="16" width="20" value="<?php echo $this->seller_id; ?>">
-			<input id="publishableKey" type="hidden" width="20" value="<?php echo $this->publishable_key; ?>">
+			<input id="sellerId" type="hidden" maxlength="16" width="20" value="<?php echo esc_attr( $this->seller_id ); ?>">
+			<input id="publishableKey" type="hidden" width="20" value="<?php echo esc_attr( $this->publishable_key ); ?>">
 			<input id="token" name="token" type="hidden" value="">
 
 			<!-- Credit card number -->
 			<p class="form-row form-row-first">
-				<label for="ccNo"><?php echo __( 'Credit Card number', 'wc_twocheckout' ); ?> <span class="required">*</span></label>
+				<label for="ccNo"><?php echo esc_html__( 'Credit Card number', 'wc_twocheckout' ); ?> <span class="required">*</span></label>
 				<input type="text" class="input-text" id="ccNo" autocomplete="off" value="" />
 
 			</p>
@@ -323,7 +321,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 
 			<!-- Credit card expiration -->
 			<p class="form-row form-row-first">
-				<label for="cc-expire-month"><?php echo __( 'Expiration date', 'wc_twocheckout' ); ?> <span class="required">*</span></label>
+				<label for="cc-expire-month"><?php echo esc_html__( 'Expiration date', 'wc_twocheckout' ); ?> <span class="required">*</span></label>
 				<select id="expMonth" class="woocommerce-select woocommerce-cc-month">
 					<option value=""><?php esc_html_e( 'Month', 'wc_twocheckout' ); ?></option>
 					<?php
@@ -333,7 +331,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 						$months[ date( 'n', $timestamp ) ] = date( 'F', $timestamp );
 					}
 					foreach ( $months as $num => $name ) {
-						printf( '<option value="%02d">%s</option>', $num, $name );
+						printf( '<option value="%02d">%s</option>', esc_attr( $num ), esc_html( $name ) );
 					}
 					?>
 				</select>
@@ -342,7 +340,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 						<?php
 						$years = array();
 						for ( $i = date( 'y' ); $i <= date( 'y' ) + 15; $i ++ ) {
-							printf( '<option value="20%u">20%u</option>', $i, $i );
+							printf( '<option value="20%u">20%u</option>', esc_attr( $i ), esc_html( $i ) );
 						}
 						?>
 				</select>
@@ -430,10 +428,10 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 		</script>
 
 		<?php if ( $this->sandbox === 'yes' ) : ?>
-		<script type="text/javascript" src="https://sandbox.2checkout.com/checkout/api/script/publickey/<?php echo $this->seller_id; ?>"></script>
+		<script type="text/javascript" src="https://sandbox.2checkout.com/checkout/api/script/publickey/<?php echo esc_attr( $this->seller_id ); ?>"></script>
 		<script type="text/javascript" src="https://sandbox.2checkout.com/checkout/api/2co.js"></script>
 		<?php else : ?>
-		<script type="text/javascript" src="https://www.2checkout.com/checkout/api/script/publickey/<?php echo $this->seller_id; ?>"></script>
+		<script type="text/javascript" src="https://www.2checkout.com/checkout/api/script/publickey/<?php echo esc_attr( $this->seller_id ); ?>"></script>
 		<script type="text/javascript" src="https://www.2checkout.com/checkout/api/2co.js"></script>
 			<?php
 		endif;
