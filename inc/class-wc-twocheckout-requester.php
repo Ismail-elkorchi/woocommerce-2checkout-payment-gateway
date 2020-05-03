@@ -16,7 +16,7 @@ class WC_Twocheckout_Requester {
 	/**
 	 * The constructor function.
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->private_key = WC_Twocheckout_Api::$private_key;
 		$this->api_url     = WC_Twocheckout_Api::$api_url;
 	}
@@ -28,7 +28,7 @@ class WC_Twocheckout_Requester {
 	 * @throws WC_Twocheckout_Exception If the cURL call failed.
 	 * @return string
 	 */
-	function do_call( $data ) {
+	public function do_call( $data ) {
 		$data['private_key'] = $this->private_key;
 		$data                = wp_json_encode( $data );
 		$header              = array( 'content-type:application/JSON', 'content-length:' . strlen( $data ) );

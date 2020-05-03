@@ -23,7 +23,7 @@ abstract class WC_Twocheckout_Api {
 	 * @param string $private_key The private API key.
 	 * @param string $mode The mode of connection : sandbox or live.
 	 */
-	static function set_credentials( $sid, $private_key, $mode = '' ) {
+	public static function set_credentials( $sid, $private_key, $mode = '' ) {
 		self::$sid         = $sid;
 		self::$private_key = $private_key;
 		if ( 'sandbox' === $mode ) {

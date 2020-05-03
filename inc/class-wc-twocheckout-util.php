@@ -16,7 +16,7 @@ class WC_Twocheckout_Util {
 	 * @param string $contents json data.
 	 * @return array
 	 */
-	static function return_resp( $contents ) {
+	public static function return_resp( $contents ) {
 		$array_object = self::object_to_array( $contents );
 		self::check_error( $array_object );
 		return $array_object;
