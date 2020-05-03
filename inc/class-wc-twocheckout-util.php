@@ -17,8 +17,8 @@ class WC_Twocheckout_Util {
 	 * @return array
 	 */
 	static function return_resp( $contents ) {
-		$array_object = self::objectToArray( $contents );
-		self::checkError( $array_object );
+		$array_object = self::object_to_array( $contents );
+		self::check_error( $array_object );
 		return $array_object;
 	}
 
@@ -28,7 +28,7 @@ class WC_Twocheckout_Util {
 	 * @param string $object json data.
 	 * @return array
 	 */
-	public static function objectToArray( $object ) {
+	public static function object_to_array( $object ) {
 		$object = json_decode( $object, true );
 		$array  = array();
 		foreach ( $object as $member => $data ) {
@@ -43,7 +43,7 @@ class WC_Twocheckout_Util {
 	 * @param string $contents json data.
 	 * @throws WC_Twocheckout_Exception If it exists.
 	 */
-	public static function checkError( $contents ) {
+	public static function check_error( $contents ) {
 		if ( isset( $contents['exception'] ) ) {
 			throw new WC_Twocheckout_Exception( $contents['exception']['errorMsg'], $contents['exception']['errorCode'] );
 		}

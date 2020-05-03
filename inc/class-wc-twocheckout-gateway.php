@@ -470,9 +470,9 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 
 		try {
 			if ( $this->sandbox === 'yes' ) {
-				WC_Twocheckout_Api::setCredentials( $this->seller_id, $this->private_key, 'sandbox' );
+				WC_Twocheckout_Api::set_credentials( $this->seller_id, $this->private_key, 'sandbox' );
 			} else {
-				WC_Twocheckout_Api::setCredentials( $this->seller_id, $this->private_key );
+				WC_Twocheckout_Api::set_credentials( $this->seller_id, $this->private_key );
 			}
 			$charge = WC_Twocheckout_Charge::auth( $twocheckout_args );
 			if ( $charge['response']['responseCode'] === 'APPROVED' ) {
