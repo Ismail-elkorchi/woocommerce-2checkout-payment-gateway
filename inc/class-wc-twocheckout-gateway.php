@@ -35,7 +35,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 		global $woocommerce;
 
 		$this->id         = 'twocheckout';
-		$this->icon       = apply_filters( 'wc_twocheckout_icon', '' . $plugin_dir . 'twocheckout.png' );
+		$this->icon       = apply_filters( 'wc_twocheckout_icon', '' . $plugin_dir . 'assets/images/twocheckout.png' );
 		$this->has_fields = true;
 
 		// Load the settings.
@@ -61,6 +61,9 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_wc_' . $this->id, array( $this, 'check_ipn_response' ) );
+
+		// Enqueue payment scripts.
+		add_action( 'wp_enqueue_scripts', array( $this, 'payment_scripts' ) );
 
 		if ( ! $this->is_valid_for_use() ) {
 			$this->enabled = false;
@@ -327,7 +330,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 					<?php
 					$months = array();
 					for ( $i = 1; $i <= 12; $i ++ ) {
-						$timestamp                         = mktime( 0, 0, 0, $i, 1 );
+						$timestamp                           = mktime( 0, 0, 0, $i, 1 );
 						$months[ gmdate( 'n', $timestamp ) ] = gmdate( 'F', $timestamp );
 					}
 					foreach ( $months as $num => $name ) {
@@ -358,83 +361,20 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 
 		</fieldset>
 
-		<script type="text/javascript">
-			var formName = "order_review";
-			var myForm = document.getElementsByName('checkout')[0];
-			if(myForm) {
-				myForm.id = "tcoCCForm";
-				formName = "tcoCCForm";
-			}
-			jQuery('#' + formName).on("click", function(){
-				jQuery('#place_order').unbind('click');
-				jQuery('#place_order').click(function(e) {
-					e.preventDefault();
-					retrieveToken();
-				});
-			});
+		<?php
+	}
 
-			function successCallback(data) {
-				clearPaymentFields();
-				jQuery('#token').val(data.response.token.token);
-				jQuery('#place_order').unbind('click');
-				jQuery('#place_order').click(function(e) {
-					return true;
-				});
-				jQuery('#place_order').click();
-			}
-
-			function errorCallback(data) {
-				if (data.errorCode === 200) {
-					TCO.requestToken(successCallback, errorCallback, formName);
-				} else if(data.errorCode == 401) {
-					clearPaymentFields();
-					jQuery('#place_order').click(function(e) {
-						e.preventDefault();
-						retrieveToken();
-					});
-					jQuery("#twocheckout_error_creditcard").show();
-
-				} else{
-					clearPaymentFields();
-					jQuery('#place_order').click(function(e) {
-						e.preventDefault();
-						retrieveToken();
-					});
-					alert(data.errorMsg);
-				}
-			}
-
-			var retrieveToken = function () {
-				jQuery("#twocheckout_error_creditcard").hide();
-				if (jQuery('div.payment_method_twocheckout:first').css('display') === 'block') {
-					jQuery('#ccNo').val(jQuery('#ccNo').val().replace(/[^0-9\.]+/g,''));
-					TCO.requestToken(successCallback, errorCallback, formName);
-				} else {
-					jQuery('#place_order').unbind('click');
-					jQuery('#place_order').click(function(e) {
-						return true;
-					});
-					jQuery('#place_order').click();
-				}
-			}
-
-			function clearPaymentFields() {
-				jQuery('#ccNo').val('');
-				jQuery('#cvv').val('');
-				jQuery('#expMonth').val('');
-				jQuery('#expYear').val('');
-			}
-
-		</script>
-
-		<?php if ( $this->sandbox === 'yes' ) : ?>
-		<script type="text/javascript" src="https://sandbox.2checkout.com/checkout/api/script/publickey/<?php echo esc_attr( $this->seller_id ); ?>"></script>
-		<script type="text/javascript" src="https://sandbox.2checkout.com/checkout/api/2co.js"></script>
-		<?php else : ?>
-		<script type="text/javascript" src="https://www.2checkout.com/checkout/api/script/publickey/<?php echo esc_attr( $this->seller_id ); ?>"></script>
-		<script type="text/javascript" src="https://www.2checkout.com/checkout/api/2co.js"></script>
-			<?php
-		endif;
+	/**
+	 * Outputs Front-end scripts.
+	 */
+	public function payment_scripts() {
+		if ( $this->sandbox === 'yes' ) {
+			wp_enqueue_script( 'wc_twocheckout_sandbox', 'https://sandbox.2checkout.com/checkout/api/script/publickey/' . $this->seller_id, array(), '0.0.1', true );
+		} else {
+			wp_enqueue_script( 'wc_twocheckout_production', 'https://www.2checkout.com/checkout/api/script/publickey/' . $this->seller_id, array(), '0.0.1', true );
+		}
+		wp_enqueue_script( 'wc_twocheckout', plugins_url( 'assets/js/twocheckout.js', __FILE__ ), array(), '0.0.1', true );
+		wp_enqueue_script( 'wc_twocheckout_api', 'https://www.2checkout.com/checkout/api/2co.js', array(), '0.0.1', true );
 	}
 
 	/**
