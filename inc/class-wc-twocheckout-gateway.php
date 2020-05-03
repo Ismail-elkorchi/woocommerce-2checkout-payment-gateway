@@ -373,7 +373,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 		} else {
 			wp_enqueue_script( 'wc_twocheckout_production', 'https://www.2checkout.com/checkout/api/script/publickey/' . $this->seller_id, array(), '0.0.1', true );
 		}
-		wp_enqueue_script( 'wc_twocheckout', plugins_url( 'assets/js/twocheckout.js', __FILE__ ), array(), '0.0.1', true );
+		wp_enqueue_script( 'wc_twocheckout', plugins_url( 'assets/js/twocheckout.js', __FILE__ ), array( 'jquery' ), '0.0.1', true );
 		wp_enqueue_script( 'wc_twocheckout_api', 'https://www.2checkout.com/checkout/api/2co.js', array(), '0.0.1', true );
 	}
 
