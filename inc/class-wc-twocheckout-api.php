@@ -10,9 +10,32 @@
  */
 abstract class WC_Twocheckout_Api {
 
+	/**
+	 * The seller id.
+	 *
+	 * @var string $sid
+	 */
 	public static $sid;
+
+	/**
+	 * The user private key.
+	 *
+	 * @var string $private_key
+	 */
 	public static $private_key;
+
+	/**
+	 * 2checkout API URL.
+	 *
+	 * @var string $private_key
+	 */
 	public static $api_url;
+
+	/**
+	 * Hold errors.
+	 *
+	 * @var string $error
+	 */
 	public static $error;
 	const VERSION = '0.0.1';
 

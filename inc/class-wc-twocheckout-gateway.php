@@ -11,9 +11,19 @@
  */
 class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 
-	// Logging.
+	/**
+	 * Whether to enable logging or not.
+	 *
+	 * @var bool $log_enabled
+	 */
 	public static $log_enabled = false;
-	public static $log         = false;
+
+	/**
+	 * The log object.
+	 *
+	 * @var WC_Logger $log
+	 */
+	public static $log = false;
 
 	/**
 	 * The constructor function.

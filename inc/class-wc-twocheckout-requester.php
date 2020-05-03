@@ -10,7 +10,18 @@
  */
 class WC_Twocheckout_Requester {
 
+	/**
+	 * 2checkout API URL.
+	 *
+	 * @var string $api_url
+	 */
 	public $api_url;
+
+	/**
+	 * The user private key.
+	 *
+	 * @var string $private_key
+	 */
 	private $private_key;
 
 	/**
