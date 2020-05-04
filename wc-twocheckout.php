@@ -23,12 +23,19 @@ function wc_twocheckout_init() {
 	if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 		return; // if the WC payment gateway class is not available, do nothing.
 	}
-	if ( class_exists( 'WC_Twocheckout' ) ) {
-		return;
-	}
+	if ( ! class_exists( 'WC_Twocheckout_Gateway' ) ) {
 
-	include plugin_dir_path( __FILE__ ) . 'inc/class-wc-twocheckout-gateway.php';
-	include plugin_dir_path( __FILE__ ) . 'inc/class-wc-twocheckout-api.php';
+		define( 'WC_TWOCHECKOUT_VERSION', '0.0.1' );
+		define( 'WC_TWOCHECKOUT_PATH', plugin_dir_path( __FILE__ ) );
+		define( 'WC_TWOCHECKOUT_URL', plugin_dir_url( __FILE__ ) );
+
+		include WC_TWOCHECKOUT_PATH . 'inc/class-wc-twocheckout-gateway.php';
+		include WC_TWOCHECKOUT_PATH . 'inc/class-wc-twocheckout-api.php';
+		require WC_TWOCHECKOUT_PATH . '/inc/class-wc-twocheckout-requester.php';
+		require WC_TWOCHECKOUT_PATH . '/inc/class-wc-twocheckout-charge.php';
+		require WC_TWOCHECKOUT_PATH . '/inc/class-wc-twocheckout-util.php';
+		require WC_TWOCHECKOUT_PATH . '/inc/class-wc-twocheckout-exception.php';
+	}
 
 	add_filter( 'woocommerce_payment_gateways', 'wc_twocheckout_add_gateway' );
 	/**

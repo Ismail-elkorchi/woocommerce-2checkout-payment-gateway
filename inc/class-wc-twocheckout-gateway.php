@@ -35,7 +35,7 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 		global $woocommerce;
 
 		$this->id         = 'twocheckout';
-		$this->icon       = apply_filters( 'wc_twocheckout_icon', '' . $plugin_dir . 'assets/images/twocheckout.png' );
+		$this->icon       = apply_filters( 'wc_twocheckout_icon', '' . WC_TWOCHECKOUT_URL . 'assets/images/twocheckout.png' );
 		$this->has_fields = true;
 
 		// Load the settings.
@@ -369,12 +369,12 @@ class WC_Twocheckout_Gateway extends WC_Payment_Gateway {
 	 */
 	public function payment_scripts() {
 		if ( $this->sandbox === 'yes' ) {
-			wp_enqueue_script( 'wc_twocheckout_sandbox', 'https://sandbox.2checkout.com/checkout/api/script/publickey/' . $this->seller_id, array(), '0.0.1', true );
+			wp_enqueue_script( 'wc_twocheckout_sandbox', 'https://sandbox.2checkout.com/checkout/api/script/publickey/' . $this->seller_id, array(), WC_TWOCHECKOUT_VERSION, true );
 		} else {
-			wp_enqueue_script( 'wc_twocheckout_production', 'https://www.2checkout.com/checkout/api/script/publickey/' . $this->seller_id, array(), '0.0.1', true );
+			wp_enqueue_script( 'wc_twocheckout_production', 'https://www.2checkout.com/checkout/api/script/publickey/' . $this->seller_id, array(), WC_TWOCHECKOUT_VERSION, true );
 		}
-		wp_enqueue_script( 'wc_twocheckout', plugins_url( 'assets/js/twocheckout.js', __FILE__ ), array( 'jquery' ), '0.0.1', true );
-		wp_enqueue_script( 'wc_twocheckout_api', 'https://www.2checkout.com/checkout/api/2co.js', array(), '0.0.1', true );
+		wp_enqueue_script( 'wc_twocheckout', WC_TWOCHECKOUT_URL . 'assets/js/twocheckout.js', array( 'jquery' ), WC_TWOCHECKOUT_VERSION, true );
+		wp_enqueue_script( 'wc_twocheckout_api', 'https://www.2checkout.com/checkout/api/2co.js', array(), WC_TWOCHECKOUT_VERSION, true );
 	}
 
 	/**

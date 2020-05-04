@@ -37,7 +37,6 @@ abstract class WC_Twocheckout_Api {
 	 * @var string $error
 	 */
 	public static $error;
-	const VERSION = '0.0.1';
 
 	/**
 	 * Set 2Checkout API credentials.
@@ -57,7 +56,3 @@ abstract class WC_Twocheckout_Api {
 	}
 }
 
-require dirname( __FILE__ ) . '/class-wc-twocheckout-requester.php';
-require dirname( __FILE__ ) . '/class-wc-twocheckout-charge.php';
-require dirname( __FILE__ ) . '/class-wc-twocheckout-util.php';
-require dirname( __FILE__ ) . '/class-wc-twocheckout-exception.php';
